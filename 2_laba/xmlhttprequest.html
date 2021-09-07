@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onload = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == "200") {
+                    document.getElementById("demo").innerHTML += this.responseText;
+                }
+            }
+            xmlhttp.open("GET", 'http://localhost:5000/api/name', true);
+            xmlhttp.send();
+    </script>
+</head>
+<body>
+    <p id="demo">Hello </p>
+</body>
+</html>
