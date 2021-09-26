@@ -3,6 +3,7 @@ const url = require("url");
 const fs = require("fs");
 
 const server = http.createServer().listen(5000);
+console.log("Server is started http://localhost:5000/");
 
 server.on("request", (req, res) => {
   const path = url.parse(req.url).pathname;
