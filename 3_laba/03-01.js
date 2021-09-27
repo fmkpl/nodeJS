@@ -2,6 +2,9 @@ const http = require("http");
 const url = require("url");
 const readline = require("readline");
 
+const server = http.createServer().listen(5000);
+console.log("Server is started http://localhost:5000/");
+
 const inOut = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -25,8 +28,7 @@ const state = {
   current: "norm",
 };
 
-const server = http.createServer().listen(5000);
-console.log("Server is started http://localhost:5000/");
+
 
 server.on("request", (req, res) => {
   const path = url.parse(req.url).pathname;
