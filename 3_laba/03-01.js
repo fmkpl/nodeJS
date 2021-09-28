@@ -14,7 +14,7 @@ function consoleListening() {
     inOut.question(`${state.current}->`, (answer) => {
       prompt(answer);
     });
-  }
+}
   
   function testAnswer(answer) {
     return (

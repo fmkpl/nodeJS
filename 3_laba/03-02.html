@@ -15,7 +15,7 @@
       window.addEventListener("load", (event) => {
         const startTime = new Date().getTime();
         let lastTime = startTime;
-        for (let x = 2; x <= 20; ++x) {
+        for (let x = 0; x <= 20; ++x) {
           fetch(`http://localhost:5000/fact?k=${x}`, { method: "GET" })
             .then((response) => {
               return response.json();
@@ -30,9 +30,9 @@
               element.appendChild(node);
               if (currentTime > lastTime) {
                 lastTime = currentTime;
-                document.querySelector(".finish_time").innerHTML = `Finish: ${
+                document.querySelector(".finish_time").innerHTML = `Результат: ${
                   new Date().getTime() - startTime
-                }ms`;
+                }мс`;
               }
             });
         }
