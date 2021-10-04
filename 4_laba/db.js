@@ -1,8 +1,6 @@
 const events = require("events");
 const url = require("url");
 
-//переделать под ассинхронную обработку событий
-
 class DB extends events.EventEmitter {
   constructor() {
     super();
