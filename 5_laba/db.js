@@ -1,116 +1,109 @@
-const http = require("http");
+const events = require("events");
 const url = require("url");
-const fs = require("fs");
-const db = require("./db").db;
-const history = require("./history").history;
 
-const server = http.createServer().listen(5000);
-console.log("http://localhost:5000/api/db");
+//переделать под ассинхронную обработку событий
 
-server.on("request", (req, res) => {
-  const path = url.parse(req.url).pathname;
+class DB extends events.EventEmitter {
+  constructor() {
+    super();
+    this.data = [
+      { id: 1, name: "Sergei", bday: new Date("03.05.2002") },
+      { id: 2, name: "Sofia", bday: new Date("28.10.2004") },
+      { id: 3, name: "Sveta", bday: new Date("25.06.2007") },
+      { id: 4, name: "Alexandr", bday: new Date("07.03.1977") },
+      { id: 5, name: "Anjelika", bday: new Date("15.06.1973") },
+    ];
+  }
 
-  if (path == "/") {
-    fs.readFile("05-01.html", (err, data) => {
-      if (err) {
-        console.log(err.message);
-        return;
-      }
-
-      res.writeHead(200, { "Content-Type": "text/html" });
-      res.end(data);
+  async select() {
+    return await new Promise((resolve, reject) => {
+      resolve(this.data);
     });
-  } else if (path == "/api/db") {
-    db.emit(req.method, req, res);
-    history.emit("Request");
-  } else if (path == "/api/ss" && req.method == "GET") {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(
-      JSON.stringify({
-        start: formatDate(history.startTime),
-        end: formatDate(history.endTime),
-        request: history.req,
-        commit: history.commits,
-      })
-    );
+  }
+
+  async insert(obj) {
+    return await new Promise((resolve, reject) => {
+      this.data.push(obj);
+      resolve("Success");
+    });
+  }
+
+  async update(obj) {
+    return await new Promise((resolve, reject) => {
+      for (let s of this.data) {
+        if (s.id == obj.id) {
+          s.name = obj.name;
+          s.bday = obj.bday;
+          resolve({ status: "Succes" });
+        }
+      }
+      resolve({ status: "Failed" });
+    });
+  }
+
+  async delete(id) {
+    return await new Promise((resolve, reject) => {
+      let delObj = { status: "failed" };
+      this.data.forEach((value, index) => {
+        if (value.id == id) {
+          delObj = JSON.parse(JSON.stringify(value));
+          this.data.splice(index, 1);
+        }
+      });
+      resolve(delObj);
+    });
+  }
+
+  async commit() {
+    return await new Promise((resolve, reject) => {
+      resolve("The Changes are commited");
+    });
+  }
+}
+
+const db = new DB();
+
+db.on("GET", (req, res) => {
+  db.select().then((data) => {
+    console.log("GET");
+    res.end(JSON.stringify(data));
+  });
+});
+
+db.on("POST", (req, res) => {
+  req.on("data", (data) => {
+    const obj = JSON.parse(data);
+    db.insert(obj).then((result) => {
+      console.log("POST", result);
+      res.end(JSON.stringify(obj));
+    });
+  });
+});
+
+db.on("PUT", (req, res) => {
+  req.on("data", (data) => {
+    const obj = JSON.parse(data);
+    db.update(obj).then((result) => {
+      console.log("PUT", result);
+      res.end(JSON.stringify(result));
+    });
+  });
+});
+
+db.on("DELETE", (req, res) => {
+  const id = url.parse(req.url, true).query.id;
+  if (id != "undefined") {
+    db.delete(id).then((result) => {
+      console.log("DELETE", result);
+      res.end(JSON.stringify(result));
+    });
   }
 });
 
-let sdHandler = null;
-let scHandler = null;
-let ssHandler = null;
-
-process.stdin.setEncoding("utf-8");
-process.stdin.on("readable", () => {
-  let chunk = null;
-  while ((chunk = process.stdin.read()) != null) {
-    if (chunk.includes("sd")) {
-      sdHandler = sd(chunk, sdHandler);
-    } else if (chunk.includes("sc")) {
-      scHandler = sc(chunk, scHandler);
-    } else if (chunk.includes("ss")) {
-      ssHandler = ss(chunk, ssHandler);
-    }
-  }
+db.on("COMMIT", () => {
+  db.commit().then((data) => {
+    console.log(data);
+  });
 });
 
-function sd(command, handler) {
-  const commandsParts = command.split(" ");
-  if (commandsParts.length == 1 && handler != null) {
-    clearTimeout(handler);
-    return null;
-  } else if (Number.parseInt(commandsParts[1]) != NaN) {
-    const time = Number.parseInt(commandsParts[1]) * 1000;
-    if (handler != null) {
-      clearTimeout(handler);
-    }
-    return setTimeout(() => {
-      server.close();
-      process.exit(0);
-    }, time);
-  }
-}
-
-function sc(command, handler) {
-  const commandsParts = command.split(" ");
-  if (commandsParts.length == 1 && handler != null) {
-    clearInterval(handler);
-    return null;
-  } else if (Number.parseInt(commandsParts[1]) != NaN) {
-    const interval = Number.parseInt(commandsParts[1]) * 1000;
-    if (handler != null) {
-      clearInterval(handler);
-    }
-
-    const intervalHandler = setInterval(() => {
-      db.emit("COMMIT");
-      history.emit("Commit");
-    }, interval);
-
-    intervalHandler.unref();
-    return intervalHandler;
-  }
-}
-
-function ss(command, handler) {
-  const commandsParts = command.split(" ");
-  if (commandsParts.length == 1 && handler != null) {
-    clearTimeout(handler);
-    history.emit("End");
-  } else if (Number.parseInt(commandsParts[1]) != NaN) {
-    const time = Number.parseInt(commandsParts[1]) * 1000;
-    history.emit("Start");
-    const timeout = setTimeout(() => {
-      if (handler != null) clearTimeout(handler);
-      history.emit("End");
-    }, time);
-    timeout.unref();
-    return timeout;
-  }
-}
-
-function formatDate(date) {
-  return date != null
-    ? `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-    : "";
-}
+exports.db = db;
