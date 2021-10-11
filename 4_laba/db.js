@@ -6,10 +6,10 @@ class DB extends events.EventEmitter {
     super();
     this.data = [
       { id: 1, name: "Sergei", bday: new Date("03.05.2002") },
-      { id: 2, name: "Sofia", bday: new Date("28.10.2004") },
-      { id: 3, name: "Sveta", bday: new Date("25.06.2007") },
+      { id: 2, name: "Sofia", bday: new Date("02.02.2004") },
+      { id: 3, name: "Sveta", bday: new Date("03.03.2007") },
       { id: 4, name: "Alexandr", bday: new Date("07.03.1977") },
-      { id: 5, name: "Anjelika", bday: new Date("15.06.1973") },
+      { id: 5, name: "Anjelika", bday: new Date("02.06.1973") },
     ];
   }
 
