@@ -52,7 +52,10 @@ process.stdin.on("readable", () => {
       ssHandler = ss(chunk, ssHandler);
     }
   }
+  process.stdin.unref();
 });
+
+
 
 function sd(command, handler) {
   const commandsParts = command.split(" ");
@@ -64,10 +67,15 @@ function sd(command, handler) {
     if (handler != null) {
       clearTimeout(handler);
     }
-    return setTimeout(() => {
+
+    const timeOut = setTimeout(() => {
+      server.unref();
       server.close();
-      process.exit(0);
+      
     }, time);
+
+    timeOut.unref();
+    return timeOut;
   }
 }
 
