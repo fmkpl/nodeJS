@@ -1,0 +1,11 @@
+{
+  "name": "m0603efimkopyl",
+  "version": "1.0.0",
+  "description": "BGTU",
+  "main": "send.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ya",
+  "license": "ISC"
+}
