@@ -12,7 +12,7 @@ function send(mail) {
   const option = {
     from: "efimberg22@gmail.com",
     to: "efimkopyltoppg@yandex.by",
-    subject: "Send function",
+    subject: "Send email function",
     text: mail,
   };
 
