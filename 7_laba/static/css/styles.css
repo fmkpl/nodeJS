@@ -1,11 +1,11 @@
 @charset "utf-8";
 
 body {
-  background-color: aliceblue;
+  background-color: black;
 }
 
 .container {
-  color: tomato;
+  color: white;
 }
 
 img {
