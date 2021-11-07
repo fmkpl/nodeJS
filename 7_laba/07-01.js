@@ -7,9 +7,7 @@ const http_handler = (req, res) => {
   } else if (stat.isStatic("css", req.url)) {
     stat.sendFile(req, res, { "Content-Type": "text/css; charset=utf-8" });
   } else if (stat.isStatic("js", req.url)) {
-    stat.sendFile(req, res, {
-      "Content-Type": "text/javascript; charset=utf-8",
-    });
+    stat.sendFile(req, res, { "Content-Type": "text/javascript; charset=utf-8" });
   } else if (stat.isStatic("png", req.url)) {
     stat.sendFile(req, res, { "Content-Type": "image/png;" });
   } else if (stat.isStatic("docx", req.url)) {
