@@ -273,7 +273,7 @@ const parameterV2 = (req, res) => {
     if (x && y) {
       let result = `x+y= ${x + y} <br/>
       x-y= ${x - y} <br/> x*y= ${x * y} <br/>
-      x/y= &{x/y}<br/>`;
+      x/y= ${x / y}<br/>`;
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(result);
     } else {
@@ -329,7 +329,7 @@ const parameter = (req, res) => {
       const y = Number.parseInt(q["y"]);
       let result = `x+y= ${x + y} <br/>
       x-y= ${x - y} <br/> x*y= ${x * y} <br/>
-      x/y= &{x/y}<br/>`;
+      x/y= ${x / y}<br/>`;
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(result);
     } else {
