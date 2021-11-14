@@ -142,9 +142,9 @@ const jsonPost = (req, res) => {
     req.on("end", () => {
       const q = JSON.parse(result);
       let resJson = {};
-      resJson["__comment"] = "Ответ.Лабараторная работа 8.10";
+      resJson["__comment"] = "Ответ.Лабараторная работа 8/10";
       resJson["x_plus_y"] = Number.parseInt(q.x) + Number.parseInt(q.y);
-      resJson["Concatination_s_o"] = `${q.s} ${q.o.surname}, ${q.o.name}`;
+      resJson["Concatination_s_o"] = `${q.s}: ${q.o.surname}, ${q.o.name}`;
       resJson["Length_m"] = Array.isArray(q.m) ? q.m.length : 0;
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify(resJson));
@@ -203,7 +203,7 @@ const respStatus = (req, res) => {
 const reqData = (req, res) => {
   if (req.method === "GET" || req.method === "POST") {
     req.on("data", (data) => {
-      console.log("---------data chunk----------", data);
+      console.log("---------data chunk----------", data, "----------end--------");
     });
 
     req.on("end", () => {
@@ -345,4 +345,4 @@ server.listen(5000, () => {
 });
 server.on("request", filesV2);
 server.on("request", http_router);
-server.on("request", parameterV2);
+//server.on("request", parameterV2);
