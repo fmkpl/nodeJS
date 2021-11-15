@@ -220,7 +220,7 @@ const socket = (req, res) => {
     const serverAddr = res.socket.remoteAddress;
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end(
-      `Clent:<br/>IP:${ip}<br/>Port:${port}<br/>Server${serverAddr}:<br/>Port:${serverPort}<br/>`
+      `Clent:<br/>IP:${ip}<br/>Port:${port}<br/>Server:<br/>IP:${serverAddr}<br/>Port:${serverPort}<br/>`
     );
   }
 };
@@ -345,4 +345,4 @@ server.listen(5000, () => {
 });
 server.on("request", filesV2);
 server.on("request", http_router);
-//server.on("request", parameterV2);
+server.on("request", parameterV2);
