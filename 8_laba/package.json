@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Sergei",
+  "author": "Ya",
   "license": "ISC",
   "dependencies": {
     "multiparty": "^4.2.2",
