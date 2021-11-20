@@ -12,7 +12,7 @@ const json = JSON.stringify({
   x: 1,
   y: 2,
   m: ["v", "b", "s"],
-  o: { name: "Sergei", surname: "Valko" },
+  o: { name: "Efim", surname: "Kopyl" },
   s: "Message: ",
 });
 

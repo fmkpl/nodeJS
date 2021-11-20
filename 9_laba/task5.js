@@ -1,6 +1,6 @@
 const http = require("http");
-const parseString = require("xml2js").parseString;
-const xmlbuilder = require("xmlbuilder");
+const parseString = require("C:/Users/user/AppData/Roaming/npm/node_modules/xml2js").parseString;
+const xmlbuilder = require("C:/Users/user/AppData/Roaming/npm/node_modules/xmlbuilder");
 const xmldoc = xmlbuilder.create("request").att("id", 33);
 xmldoc.element("x").att("value", 1);
 xmldoc.element("x").att("value", 2);

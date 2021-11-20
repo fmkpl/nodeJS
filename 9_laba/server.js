@@ -2,9 +2,9 @@ const http = require("http");
 const fs = require("fs");
 const url = require("url");
 const querystring = require("querystring");
-const xmlbuilder = require("xmlbuilder");
-const parseString = require("xml2js").parseString;
-const multiparty = require("multiparty");
+const xmlbuilder = require("C:/Users/user/AppData/Roaming/npm/node_modules/xmlbuilder");
+const parseString = require("C:/Users/user/AppData/Roaming/npm/node_modules/xml2js").parseString;
+const multiparty = require("C:/Users/user/AppData/Roaming/npm/node_modules/multiparty");
 
 const get_handler = (req, res) => {
   const path = url.parse(req.url, true).pathname;
