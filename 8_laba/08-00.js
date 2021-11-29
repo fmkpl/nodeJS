@@ -216,8 +216,8 @@ const socket = (req, res) => {
   if (req.method === "GET") {
     const ip = req.socket.remoteAddress;
     const port = req.socket.remotePort;
-    const serverPort = res.socket.remotePort;
-    const serverAddr = res.socket.remoteAddress;
+    const serverPort = res.socket.localPort;
+    const serverAddr = res.socket.localAddress;
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end(
       `Clent:<br/>IP:${ip}<br/>Port:${port}<br/>Server:<br/>IP:${serverAddr}<br/>Port:${serverPort}<br/>`
