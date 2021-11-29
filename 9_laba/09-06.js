@@ -11,7 +11,7 @@ body += `\r\n--${bound}--\r\n`;
 const options = {
   host: "localhost",
   port: "5000",
-  path: "/task6",
+  path: "/09-06",
   method: "POST",
   headers: { "Content-Type": `multipart/form-data; boundary=${bound}` },
 };

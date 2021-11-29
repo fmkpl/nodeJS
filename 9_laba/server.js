@@ -8,21 +8,21 @@ const multiparty = require("C:/Users/user/AppData/Roaming/npm/node_modules/multi
 
 const get_handler = (req, res) => {
   const path = url.parse(req.url, true).pathname;
-  if (path === "/task1") {
+  if (path === "/09-01") {
     res.writeHead(200, { "Content-Type": "text/plain" });
     res.end("Task 1 response");
-  } else if (path === "/task2") {
+  } else if (path === "/09-02") {
     const q = url.parse(req.url, true).query;
     res.writeHead(200, { "Content-Type": "text/plain" });
     res.end(`x: ${q["x"]}, y: ${q["y"]}`);
-  } else if (path === "/task8") {
+  } else if (path === "/09-08") {
     res.end(fs.readFileSync("myFile.txt"));
   }
 };
 
 const post_handler = (req, res) => {
   const path = url.parse(req.url, true).pathname;
-  if (path === "/task3") {
+  if (path === "/09-03") {
     let body = "";
     req.on("data", (data) => {
       body += data;
@@ -34,7 +34,7 @@ const post_handler = (req, res) => {
       res.writeHead(200, { "Content-Type": "text/plain" });
       res.end(result);
     });
-  } else if (path === "/task4") {
+  } else if (path === "/09-04") {
     let data = "";
     req.on("data", (chunk) => {
       data += chunk;
@@ -50,7 +50,7 @@ const post_handler = (req, res) => {
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify(resJson));
     });
-  } else if (path === "/task5") {
+  } else if (path === "/09-05") {
     let xmlstring = "";
     req.on("data", (data) => {
       xmlstring += data;
@@ -83,7 +83,7 @@ const post_handler = (req, res) => {
         res.end(resXml.toString({ pretty: true }));
       });
     });
-  } else if (path === "/task6" || path === "/task7") {
+  } else if (path === "/09-06" || path === "/09-07") {
     let result = "";
     const form = new multiparty.Form({ uploadDir: "./static" });
     form.on("filed", (name, value) => {

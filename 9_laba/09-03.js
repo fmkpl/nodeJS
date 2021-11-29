@@ -1,20 +1,12 @@
 const http = require("http");
+const query = require("querystring");
+const path = "/09-03";
 const options = {
   host: "localhost",
   port: "5000",
-  path: "/task4",
+  path: path,
   method: "POST",
-  headers: { "Content-Type": "applicatiom/json" },
 };
-
-const json = JSON.stringify({
-  __comment: "Request",
-  x: 1,
-  y: 2,
-  m: ["v", "b", "s"],
-  o: { name: "Efim", surname: "Kopyl" },
-  s: "Message: ",
-});
 
 const req = http.request(options, (res) => {
   console.log("Response status code: ", res.statusCode);
@@ -23,9 +15,8 @@ const req = http.request(options, (res) => {
     data += chunk;
   });
   res.on("end", () => {
-    console.log("Data: ", JSON.parse(data));
+    console.log("Data: ", data);
   });
 });
 
-req.write(json);
-req.end();
+req.end(query.stringify({ x: "Hello", y: "world", s: "!!!" }));

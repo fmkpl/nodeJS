@@ -9,7 +9,7 @@ body += "Content-Type:application/octet-stream\r\n\r\n";
 const options = {
   host: "localhost",
   port: "5000",
-  path: "/task7",
+  path: "/09-07",
   method: "POST",
   headers: { "Content-Type": `multipart/form-data; boundary=${bound}` },
 };

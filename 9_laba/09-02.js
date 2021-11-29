@@ -1,11 +1,11 @@
 const http = require("http");
 const query = require("querystring");
-const path = "/task3";
+const path = "/09-02?" + query.stringify({ x: 6, y: 4 });
 const options = {
   host: "localhost",
   port: "5000",
   path: path,
-  method: "POST",
+  method: "GET",
 };
 
 const req = http.request(options, (res) => {
@@ -19,4 +19,4 @@ const req = http.request(options, (res) => {
   });
 });
 
-req.end(query.stringify({ x: "Hello", y: "world", s: "!!!" }));
+req.end();
