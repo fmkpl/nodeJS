@@ -9,8 +9,8 @@ const options = {
 const req = http.request(options, (res) => {
   console.log("Response status code: ", res.statusCode);
   console.log("Response status message: ", res.statusMessage);
-  console.log("Server adress: ", res.socket.remoteAddress);
-  console.log("Server port: ", res.socket.remotePort);
+  console.log("Server adress: ", res.socket.localAddress);
+  console.log("Server port: ", res.socket.localPort);
   let data = "";
   res.on("data", (chunk) => {
     data += chunk;

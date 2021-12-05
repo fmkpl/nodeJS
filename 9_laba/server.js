@@ -10,7 +10,7 @@ const get_handler = (req, res) => {
   const path = url.parse(req.url, true).pathname;
   if (path === "/09-01") {
     res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Task 1 response");
+    res.end("Hello from 1st task");
   } else if (path === "/09-02") {
     const q = url.parse(req.url, true).query;
     res.writeHead(200, { "Content-Type": "text/plain" });

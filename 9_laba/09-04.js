@@ -11,7 +11,7 @@ const json = JSON.stringify({
   __comment: "Request",
   x: 1,
   y: 2,
-  m: ["v", "b", "s"],
+  m: ["h", "e", "y"],
   o: { name: "Efim", surname: "Kopyl" },
   s: "Message: ",
 });
