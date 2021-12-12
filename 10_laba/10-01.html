@@ -28,7 +28,7 @@
           }, 3000);
         };
         webSocket.onmessage = (event) => {
-          dataElem.innerHTML = event.data;
+          dataElem.innerHTML +=('<br/>' + event.data);
         };
 
         webSocket.onclose = (event) => {
